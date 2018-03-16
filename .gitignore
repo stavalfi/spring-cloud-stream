@@ -27,3 +27,5 @@ hs_err_pid*
 spring-cloud-stream.iml
 /spring-cloud-stream-consumer/spring-cloud-stream-consumer.iml
 /spring-cloud-stream-producer/spring-cloud-stream-producer.iml
+/spring-cloud-stream-consumer/target/
+/spring-cloud-stream-producer/target/
