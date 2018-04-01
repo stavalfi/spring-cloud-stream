@@ -29,3 +29,4 @@ spring-cloud-stream.iml
 /spring-cloud-stream-producer/spring-cloud-stream-producer.iml
 /spring-cloud-stream-consumer/target/
 /spring-cloud-stream-producer/target/
+/spring-cloud-stream-consumer/target/classes/application.properties
