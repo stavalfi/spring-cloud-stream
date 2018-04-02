@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import reactor.core.publisher.Flux;
+import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.messaging.Message;
 
 
 @EnableBinding(Sink.class)
@@ -20,22 +21,13 @@ public class SpringCloudStreamKinesisConsumerApplication {
 		SpringApplication.run(SpringCloudStreamKinesisConsumerApplication.class, args);
 	}
 
-	@StreamListener(value = Sink.INPUT)
-	public void kinesisSubscriber(Flux<String> input) {
-		input.subscribe(System.out::println, Throwable::printStackTrace, () -> System.out.println("finish!"));
+	@StreamListener(Sink.INPUT) // destination name 'input.myGroup'
+	public void handle(String value) {
+		throw new RuntimeException("BOOM!");
+	}
+
+	@ServiceActivator(inputChannel = "stava2.myGroup.errors")
+	public void error(Message<?> message) {
+		System.out.println("Handling ERROR: " + message);
 	}
 }
-
-
-//	long startTime = System.currentTimeMillis();
-//	int counter = 0;
-
-//	@StreamListener(value = MyInputChannels.KINESIS_INPUT_CHANNEL)
-//	public void kinesisSubscriber(String payload) {
-//		String currentDate = DateTimeFormatter.ofPattern("hh:mm:ss.SSS").format(ZonedDateTime.now());
-//		long currentTime = System.currentTimeMillis();
-//		long delay = currentTime - this.startTime;
-//		this.startTime = System.currentTimeMillis();
-//		System.out.println("current time: " + currentDate + ", time from last batch: " + delay + ", messsages until now: " + counter + " - kinesis consumer received data: " + payload);
-//		counter++;
-//	}
