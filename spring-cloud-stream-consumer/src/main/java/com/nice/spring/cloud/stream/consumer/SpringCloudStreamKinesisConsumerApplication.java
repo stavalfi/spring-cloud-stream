@@ -30,4 +30,9 @@ public class SpringCloudStreamKinesisConsumerApplication {
 	public void error(Message<?> message) {
 		System.out.println("Handling ERROR: " + message);
 	}
+
+	@StreamListener("errorChannel")
+	public void errorGlobal(Message<?> message) {
+		System.out.println("Handling ERROR: " + message);
+	}
 }
